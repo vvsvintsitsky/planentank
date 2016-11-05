@@ -1,6 +1,6 @@
-package wsvintsitsky.opengl.first;
+package wsvintsitsky.opengl.battle.plane;
 
-import com.jogamp.opengl.awt.GLCanvas;
+import com.jogamp.opengl.GL2;
 
 public class Plane {
 	
@@ -111,7 +111,7 @@ public class Plane {
 		return (z + width)/2;
 	}
 
-	public Plane(Float x, Float y, Float z, int width, int height, Float scale, float l, float h, float w, GLCanvas glcanvas) {
+	public Plane(Float x, Float y, Float z, int width, int height, Float scale, float l, float h, float w) {
 		super();
 		this.x = x;
 		this.y = y;
@@ -121,19 +121,20 @@ public class Plane {
 		this.width = w;
 		this.yAxisMul = (float) (width / height);
 		this.scale = scale;
-		this.planeFrame = new PlaneFrame(x, y, z, yAxisMul, scale, l, h , w*2/16, 12, this);
+		this.planeFrame = new PlaneFrame(x, y, z, yAxisMul, scale, l, h*2/3 , w*2/16, 12, this);
 		this.planeTailWingR = new PlaneTailWing(x + l/16, y + h/6, z + w*2/16, yAxisMul, scale, l*3/16, h/6, 0.03f, true, this);
 		this.planeTailWingL = new PlaneTailWing(x + l/16, y + h/6, z, yAxisMul, scale, l*3/16, h/6, 0.03f, false, this);
 		this.planeWingR = new PlaneWing(x + l*7/16, y + h/6, z + w*2/16, yAxisMul, scale, l*6/16, h/6, 0.07f, true, this);
 		this.planeWingL = new PlaneWing(x + l*7/16, y + h/6, z, yAxisMul, scale, l*6/16, h/6, 0.07f, false, this);
 		this.planeCabin = new PlaneCabin(x + l*10/16, y + h*3/6, z, yAxisMul, scale, l*4/16, h/3, w);
 		
-		
-		glcanvas.addGLEventListener(this.planeTailWingR);
-		glcanvas.addGLEventListener(this.planeTailWingL);
-		glcanvas.addGLEventListener(this.planeWingR);
-		glcanvas.addGLEventListener(this.planeWingL);
-		glcanvas.addGLEventListener(this.planeFrame);
-//		glcanvas.addGLEventListener(this.planeCabin);
+	}
+	
+	public void draw(final GL2 gl) {
+		this.planeFrame.draw(gl);
+		this.planeTailWingL.draw(gl);
+		this.planeTailWingR.draw(gl);
+		this.planeWingL.draw(gl);
+		this.planeWingR.draw(gl);
 	}
 }

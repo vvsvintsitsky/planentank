@@ -1,4 +1,4 @@
-package wsvintsitsky.opengl.first;
+package wsvintsitsky.opengl.battle.plane;
 
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;

@@ -1,14 +1,9 @@
-package wsvintsitsky.opengl.first;
+package wsvintsitsky.opengl.battle.plane;
 
-import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
-import com.jogamp.opengl.GLEventListener;
-import com.jogamp.opengl.glu.GLU;
-import com.jogamp.opengl.GLAutoDrawable;
 
-public class PlaneWing implements GLEventListener {
+public class PlaneWing {
 
-	private static final GLU glu = new GLU();
 	private float angle = 0.0f;
 	private Float x;
 	private Float y;
@@ -111,14 +106,6 @@ public class PlaneWing implements GLEventListener {
 		this.centerX = x + l / 2;
 		this.centerY = y + h / 2;
 		this.centerZ = z + w / 2;
-		// this.coordinates[0] = x; this.coordinates[1] = y * yAxisMul;
-		// this.coordinates[2] = z + w;
-		// this.coordinates[3] = x; this.coordinates[4] = (y + h) * yAxisMul;
-		// this.coordinates[5] = z + w;
-		// this.coordinates[6] = x + l; this.coordinates[7] = (y + h) *
-		// yAxisMul; this.coordinates[8] = z + w;
-		// this.coordinates[9] = x + l; this.coordinates[10] = y * yAxisMul;
-		// this.coordinates[11] = z + w;
 
 		this.coordinates[0] = x;
 		this.coordinates[1] = y * yAxisMul;
@@ -146,23 +133,14 @@ public class PlaneWing implements GLEventListener {
 		this.coordinates[23] = z + w * sign;
 	}
 
-	@Override
-	public void display(GLAutoDrawable drawable) {
-		final GL2 gl = drawable.getGL().getGL2();
-
-		gl.glLoadIdentity();
-
-//		gl.glScalef(scale, scale, scale);
-//		gl.glMatrixMode(GL2.GL_MODELVIEW);
+	public void draw(final GL2 gl) {
 		gl.glPushMatrix();
 
 		gl.glTranslatef(plane.getX(), plane.getY(), plane.getZ());
-//		gl.glTranslatef(centerX, centerY, centerZ -3.0f);
 		gl.glScalef(scale, scale, scale);
 		gl.glRotatef(angle, 0.0f, 1.0f, 0.0f);
 		
 		gl.glTranslatef(-plane.getX(), -plane.getY(), -plane.getZ());
-//		gl.glTranslatef(-centerX, -centerZ, -centerZ);
 
 		gl.glBegin(GL2.GL_QUAD_STRIP);
 		gl.glColor3f(0.0f, 0.5f, 0.5f);
@@ -191,37 +169,6 @@ public class PlaneWing implements GLEventListener {
 		gl.glVertex3f(this.coordinates[15], this.coordinates[16], this.coordinates[17]);
 		gl.glEnd();
 
-		gl.glFlush();
 		gl.glPopMatrix();
-	}
-
-	@Override
-	public void dispose(GLAutoDrawable arg0) {
-
-	}
-
-	@Override
-	public void init(GLAutoDrawable gLDrawable) {
-		final GL2 gl = gLDrawable.getGL().getGL2();
-		gl.glShadeModel(GL2.GL_SMOOTH);
-		gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-		gl.glClearDepth(1.0f);
-		gl.glEnable(GL.GL_DEPTH_TEST);
-		gl.glDepthFunc(GL.GL_LEQUAL);
-		gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
-	}
-
-	@Override
-	public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
-		final GL2 gl = drawable.getGL().getGL2();
-		if (height <= 0) {
-			height = 1;
-		}
-		final float h = (float) width / (float) height;
-		gl.glMatrixMode(GL2.GL_PROJECTION);
-		gl.glLoadIdentity();
-		glu.gluPerspective(50.0f, h / 2, 1.0, 1000.0);
-		gl.glMatrixMode(GL2.GL_MODELVIEW);
-		gl.glLoadIdentity();
 	}
 }

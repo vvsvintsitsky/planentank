@@ -59,7 +59,20 @@
 						<showDeprecation>true</showDeprecation>
 					</configuration>
 				</plugin>
-
+				
+				<plugin>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<configuration>
+						<archive>
+							<manifest>
+								<mainClass>wsvintsitsky.opengl.battle.Main</mainClass>
+							</manifest>
+						</archive>
+						<descriptorRefs>
+							<descriptorRef>jar-with-dependencies</descriptorRef>
+						</descriptorRefs>
+					</configuration>
+				</plugin>
 				<!--plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-eclipse-plugin</artifactId> 
 					<version>2.9</version> <configuration> <downloadSources>true</downloadSources> 
 					<wtpversion>${wtp.version}</wtpversion> </configuration> </plugin -->
